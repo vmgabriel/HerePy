@@ -105,6 +105,8 @@ class FleetTelematicsApi(HEREApi):
         if json_data.get("results") is not None:
             return response_cls.new_from_jsondict(json_data)
         else:
+            if "errors" in json_data:
+                return {"errors": json_data["errors"]}
             raise error_from_fleet_telematics_service_error(json_data)
 
     def find_sequence(
